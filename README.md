@@ -99,13 +99,13 @@ Below is an example run of the pipeline using images from this repository to ill
 
 - **Input image**: 
 
-  ![!\[Input image\](test_img/photo_6316441238265072544_y.jpg)](test_img/photo_6316441238265072545_y.jpg)
+ ![ !\[!\\[Input image\\](test_img/photo_6316441238265072544_y.jpg)\](test_img/photo_6316441238265072545_y.jpg)](test_img/photo_6316441238265072546_y.jpg)
 
 - **Step 1 — Rotation detection & correction**: the pipeline estimates the text-line rotation and rotates the image accordingly. Example rotated image (saved by the pipeline):
-
+![
   - Path: 
   
-  ![!\[Rotated image\](temp_output/rotated_image.jpg)](viz_outputs/rotated_image.jpg)
+  !\[!\\[Rotated image\\](temp_output/rotated_image.jpg)\](viz_outputs/rotated_image.jpg)](viz_outputs/rotated_image.jpg)
 
 - **Step 2 — Corner detection & orientation**: the YOLO segmentation model predicts the page mask; corner points are extracted (4 ordered corners) and the model outputs an orientation label (e.g., `up` or `down`). The pipeline will visualize mask points and corner labels when `save_paths` is provided (saved into the visualization folder).
 ![alt text](image.png)    

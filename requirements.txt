@@ -1,0 +1,26 @@
+# Use the official PyTorch CPU wheel index
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# 1. Base ML stack (Pinned for Python 3.11 compatibility)
+# We use +cpu versions to match the index-url above
+torch==2.1.2+cpu
+torchvision==0.16.2+cpu
+numpy<2.0.0
+
+# 2. Performance and Utility (Numba fixes the llvmlite issue)
+# llvmlite>=0.40.0
+# numba>=0.57.0
+
+# 3. Super-Resolution Libraries
+basicsr>=1.4.2
+realesrgan>=0.3.0
+
+# 4. Mandatory basicsr dependencies (Prevents build-backend errors)
+opencv-python
+scikit-image
+scipy
+tqdm
+pyyaml
+addict
+future
+lmdb

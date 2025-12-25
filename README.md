@@ -97,25 +97,29 @@ detector.process_and_save(
 **Demo pipeline (example images)**
 Below is an example run of the pipeline using images from this repository to illustrate each step and where the script saves intermediate results.
 
-- **Input image**: `test_img/photo_6316441238265072544_y.jpg`
+- **Input image**: 
 
-  ![Input image](test_img/photo_6316441238265072544_y.jpg)
+  ![!\[Input image\](test_img/photo_6316441238265072544_y.jpg)](test_img/photo_6316441238265072545_y.jpg)
 
 - **Step 1 — Rotation detection & correction**: the pipeline estimates the text-line rotation and rotates the image accordingly. Example rotated image (saved by the pipeline):
 
-  - Path: `/mnt/storage1/workspace/arobin/page_orientation/temp_output/rotated_image.jpg`
+  - Path: 
   
-  ![Rotated image](temp_output/rotated_image.jpg)
+  ![!\[Rotated image\](temp_output/rotated_image.jpg)](viz_outputs/rotated_image.jpg)
 
 - **Step 2 — Corner detection & orientation**: the YOLO segmentation model predicts the page mask; corner points are extracted (4 ordered corners) and the model outputs an orientation label (e.g., `up` or `down`). The pipeline will visualize mask points and corner labels when `save_paths` is provided (saved into the visualization folder).
+![alt text](image.png)    
+
+![alt text](image-1.png)
 
 - **Step 3 — Perspective transformation**: using the detected corner points the script applies a perspective warp to produce a rectangular, top-down view of the page. The corrected page image is saved to the output directory (for example `corrected_page.jpg` in the viz folder).
+![alt text](image-2.png)
 
 - **Step 4 — Super-resolution & enhancement**: the final enhancement (CLAHE, denoise, sharpening and optional Real-ESRGAN upsampling) is applied and the final enhanced image is saved. Example final enhanced image (from this run):
 
-  - Path: `/mnt/storage1/workspace/arobin/page_orientation/output_images1/photo_6316441238265072546_y.jpg`
+  ![- Path: `/mnt/storage1/workspace/arobin/page_orientation/output_images1/photo_6316441238265072546_y.jpg`
 
-  ![Enhanced final image](output_images1/photo_6316441238265072546_y.jpg)
+  !\[Enhanced final image\](output_images1/photo_6316441238265072546_y.jpg)](output_images1/photo_6316441238265072549_y.jpg)
 
 Notes:
 - The rotated image above was produced by `page_rotation.detect_and_visualize_text_lines()` (the pipeline saves this during the rotation correction step).

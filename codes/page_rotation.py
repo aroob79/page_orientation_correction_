@@ -111,7 +111,7 @@ def detect_and_visualize_text_lines(image_path,save_dir=None):
 
 if __name__ == "__main__":
     # Replace with your image path
-    image_path = '/mnt/storage1/workspace/arobin/page_orientation/test_img/photo_6321007273832024894_y.jpg'
+    image_path = '/mnt/storage1/workspace/arobin/page_orientation/IMG_20251224_110011121_HDR (1).jpg'
     
     try:
         rotation_angle, corrected_img = detect_and_visualize_text_lines(image_path, save_dir='./temp_output')

@@ -24,3 +24,7 @@ pyyaml
 addict
 future
 lmdb
+joblib 
+xgboost
+scikit-learn
+skimage 

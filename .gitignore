@@ -1,5 +1,6 @@
 # Python-generated files
 __pycache__/
+**/__pycache__/
 *.py[oc]
 build/
 dist/
@@ -13,3 +14,8 @@ wheels/
 **/temp_output/
 venv/
 env/ 
+**/outoutput_images1/
+**/seg_with_4class/
+**/viz_outputs/
+**.pt
+**/data/

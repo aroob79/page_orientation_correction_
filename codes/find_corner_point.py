@@ -3,6 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 import os 
+import uuid
 
 
 class CornerPointFinder:
@@ -155,7 +156,8 @@ class CornerPointFinder:
         plt.tight_layout()
         
         if save_path:
-            plt.savefig(os.path.join(save_path,'with_corner_point.jpg'), dpi=150, bbox_inches='tight')
+            filename = f"with_corner_point_{uuid.uuid4().hex[:8]}.jpg"
+            plt.savefig(os.path.join(save_path, filename), dpi=150, bbox_inches='tight')
             print(f"Saved visualization to: {save_path}")
         
         plt.show()
@@ -168,43 +170,61 @@ class CornerPointFinder:
 # Example usage
 if __name__ == "__main__":
     # Assume you have results from YOLO inference
-    # results = model.predict(image)
-    # mask_coords = results.masks.xy[0]  # First detected object
-    
-    # Example: Create dummy data for demonstration
-    # Replace this with your actual mask coordinates
+    from ultralytics import YOLO
     import cv2
+    model = YOLO('/mnt/storage1/workspace/arobin/page_orientation/models/seg_4_class_best.pt')  # Load a pre-trained YOLOv8 segmentation model
+    img_dir = r"/mnt/storage1/workspace/arobin/page_orientation/test_img"
+    for file_ in os.listdir(img_dir):
+        img_p_full = os.path.join(img_dir, file_)
+        print(f"Processing image: {img_p_full}")
+        results = model.predict(img_p_full)
+        # `model.predict` may return a list of result objects or a single result object
+        res = results[0] if isinstance(results, (list, tuple)) else results
+
+        # Attempt to extract segmentation mask coordinates safely
+        mask_coords = None
+        if hasattr(res, "masks") and res.masks is not None:
+            # res.masks.xy is typically a list of ndarrays (one per detected object)
+            if len(res.masks.xy) > 0:
+                mask_coords = np.array(res.masks.xy[0])
+        
+
+        # Example: Create dummy data for demonstration
+        # Replace this with your actual mask coordinates
+        
+        
+        # Load your image
+        image = cv2.imread(img_p_full)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        
+        # Get mask coordinates from YOLO results
+        # mask_coords should be numpy array of shape (N, 2)
+        # Example: 
     
-    # Load your image
-    image = corrected_img
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        
+        
+        # Find corners using different methods
+        finder = CornerPointFinder()
+        
+        # Try different methods
+        print("Testing different corner detection methods:\n")
+        output_dir =r"/mnt/storage1/workspace/arobin/page_orientation/temp_output"
+        os.makedirs(output_dir, exist_ok=True)
+        # save_path = os.path.join(output_dir, f"output_{file_}")
+        # Method 1
+        # corners1 = finder.method1_convex_hull_extreme(mask_coords)
+        # print("Method 1 - Convex Hull Extreme Points:")
+        # print(corners1)
+        # finder.visualize_corners(image, mask_coords, corners1, 
+        #                         "Method 1: Convex Hull", save_path = output_dir)
+        
+        
+        # Method 3
+        corners3 = finder.method3_polygon_approximation(mask_coords)
+        print("\nMethod 3 - Polygon Approximation:")
+        print(corners3)
+        finder.visualize_corners(image, mask_coords, corners3, 
+                                "Method 3: Polygon Approx", output_dir)
+        
     
-    # Get mask coordinates from YOLO results
-    # mask_coords should be numpy array of shape (N, 2)
-    # Example: 
-    mask_coords = results.masks.xy[0]
-    
-    
-    # Find corners using different methods
-    finder = CornerPointFinder()
-    
-    # Try different methods
-    print("Testing different corner detection methods:\n")
-    
-    # Method 1
-    corners1 = finder.method1_convex_hull_extreme(mask_coords)
-    print("Method 1 - Convex Hull Extreme Points:")
-    print(corners1)
-    finder.visualize_corners(image, mask_coords, corners1, 
-                            "Method 1: Convex Hull", "corners_method1.png")
-    
-    
-    # Method 3
-    corners3 = finder.method3_polygon_approximation(mask_coords)
-    print("\nMethod 3 - Polygon Approximation:")
-    print(corners3)
-    finder.visualize_corners(image, mask_coords, corners3, 
-                            "Method 3: Polygon Approx", "corners_method3.png")
-    
-   
-    
+        

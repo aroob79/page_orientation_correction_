@@ -4,7 +4,7 @@ import torch
 import numpy as np
 import config
 from models.model_loader import load_segmentation_model,load_model,load_classifier_model
-from utils.image_processing import enhance_image, apply_perspective_correction, rotate_image,rotate_image2
+from utils.image_processing import enhance_image, apply_perspective_correction, rotate_image,rotate_image2,read_image_any
 from utils.mask_processing import (
     get_largest_component, 
     fill_and_split_mask, 
@@ -29,7 +29,8 @@ config.HOG_CONFIG = classifier_config
 
 def process_image(img_path):
     img_name = os.path.basename(img_path)
-    img = cv2.imread(img_path)
+    # print(img_name)
+    img = read_image_any(img_path)
     if img is None: return
 
     # Preprocessing
@@ -127,5 +128,5 @@ if __name__ == "__main__":
         process_image(config.IMG_DIR)
     else:
         for file in os.listdir(config.IMG_DIR):
-            if file.lower().endswith((".jpg", ".png", ".jpeg")):
+            if file.lower().endswith((".jpg", ".png", ".jpeg",".webp")):
                 process_image(os.path.join(config.IMG_DIR, file))

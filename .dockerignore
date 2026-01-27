@@ -1,0 +1,95 @@
+# ============================================================
+# DocuVision Pro - Docker Ignore
+# Exclude unnecessary files from build context
+# ============================================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Testing
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.hypothesis/
+
+# Documentation
+docs/
+*.md
+!README.md
+LICENSE
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.docker/
+
+# Output and temp files
+output/
+uploads/
+temp/
+tmp/
+*.log
+*.tmp
+
+# Large files that should be mounted as volumes
+models/*.pth
+models/*.pt
+models/*.pkl
+models/*.onnx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Test images
+test_img/
+test_images/
+sample_images/

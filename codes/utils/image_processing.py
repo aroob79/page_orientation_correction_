@@ -75,3 +75,41 @@ def rotate_image2(img, angle):
                              borderMode=cv2.BORDER_CONSTANT,
                              borderValue=(255, 255, 255))
     return rotated
+
+
+def read_image_any(img_path: str):
+    # 1) Try OpenCV first (fast; supports most common formats)
+    img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+    if img is not None:
+        return img
+
+    # 2) Fallback to Pillow (supports more formats; can be extended with plugins)
+    try:
+        from PIL import Image
+
+        # Optional: enable HEIC/HEIF support if installed
+        # pip install pillow-heif
+        try:
+            from pillow_heif import register_heif_opener
+            register_heif_opener()
+        except Exception:
+            pass
+
+        with Image.open(img_path) as im:
+            # Normalize modes
+            if im.mode in ("P", "LA"):
+                im = im.convert("RGBA")
+            elif im.mode != "RGB" and im.mode != "RGBA":
+                im = im.convert("RGB")
+
+            arr = np.array(im)
+
+            # Convert to OpenCV-friendly format (BGR/BGRA)
+            if arr.ndim == 2:
+                return arr  # grayscale
+            if arr.shape[2] == 4:
+                return cv2.cvtColor(arr, cv2.COLOR_RGBA2BGRA)
+            return cv2.cvtColor(arr, cv2.COLOR_RGB2BGR)
+
+    except Exception:
+        return None

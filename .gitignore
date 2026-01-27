@@ -19,3 +19,6 @@ env/
 **/viz_outputs/
 **.pt
 **/data/
+*.png
+**/temp/
+**/test_img/

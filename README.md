@@ -34,7 +34,6 @@
 
 ### Why DocuVision Pro?
 
-- 📱 **Mobile-friendly**: Process photos taken from smartphones
 - 🔄 **Automatic correction**: No manual adjustment needed
 - ⚡ **Batch processing**: Handle multiple documents simultaneously
 - 🎨 **AI enhancement**: Super-resolution for crisp, clear output

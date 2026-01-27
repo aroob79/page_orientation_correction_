@@ -9,7 +9,7 @@ services:
   docuvision:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: codes/Dockerfile
       # Enable BuildKit for faster builds
       args:
         BUILDKIT_INLINE_CACHE: 1

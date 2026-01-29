@@ -125,6 +125,7 @@ models/
 ├── deeplab_mobilenetv3_best.pth    # Segmentation model
 └── rf_text_type_model.pkl          # Orientation classifier
 ```
+link :  https://drive.google.com/drive/folders/17gbXt0tSkoIDFRwYdS0VTm8Fc-uCZDRt?usp=sharing 
 
 ### Step 5: Verify Installation
 
